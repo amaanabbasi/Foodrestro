@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/homepage-card.dart';
 import 'package:todo/font-style.dart';
+import 'package:todo/models/food_item.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -94,17 +95,44 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ]),
-      body: new SingleChildScrollView(
-          child: Stack(
-        children: <Widget>[
-          new Column(
-            children: <Widget>[
-              new HomepageFeaturedContent(),
-              new HomePageBody(),
-            ],
-          )
-        ],
-      )),
+      body: new Container(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildListDelegate(
+              [
+                HomepageFeaturedContent(),
+              ]
+            ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index){
+                  return Stack(
+          children: <Widget>[
+            planetCard,
+            planetThumbnail,
+            dishContent,
+          ],
+        );
+                  
+                }, 
+                childCount: 6,                          
+                ),
+                )
+          ],
+        )
+      //     child: Stack(
+      //   children: <Widget>[
+      //     new Column(
+      //       children: <Widget>[
+      //         // new HomepageFeaturedContent(),
+      //         new HomePageBody(),
+      //       ],
+      //     )
+      //   ],
+      // )),
+    )
     );
   }
 }
@@ -145,3 +173,5 @@ class _HomeScreenState extends State<HomeScreen> {
 //           ],
 //         ),
 //       ),
+
+ 
