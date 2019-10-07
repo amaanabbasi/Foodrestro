@@ -54,7 +54,7 @@ class PlanetRow extends State<HomePageBody> {
         child: new Stack(
           children: <Widget>[
             planetCard,
-            planetThumbnail,
+            dishThumbnail,
             dishContent,
           ],
         )
@@ -64,7 +64,7 @@ class PlanetRow extends State<HomePageBody> {
   }
 }
 
-final planetThumbnail = new Container(
+final dishThumbnail = new Container(
   margin: new EdgeInsets.symmetric(
     vertical: 16.0,
     horizontal: 10.0,

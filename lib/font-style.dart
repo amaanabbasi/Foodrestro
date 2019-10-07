@@ -6,7 +6,7 @@ final drawerTextStyle = const TextStyle(fontFamily: 'OpenSans');
 
 final headerTextStyle = baseTextStyle.copyWith(
   color: const Color.fromRGBO(50, 50, 50, 1),
-  fontSize: 16.0,
+  fontSize: 13.0,
   fontWeight: FontWeight.w500,
 );
 
