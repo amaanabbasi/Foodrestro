@@ -4,11 +4,25 @@ import 'package:flutter/material.dart';
 final baseTextStyle = const TextStyle(fontFamily: 'Merriweather');
 final drawerTextStyle = const TextStyle(fontFamily: 'OpenSans');
 
+
+final cartHeaderStyle = drawerTextStyle.copyWith(
+  color: const Color.fromRGBO(50, 50, 50, 1),
+  fontSize: 32.0,
+  fontWeight: FontWeight.w800,
+);
+
+final cartSubHeaderStyle = drawerTextStyle.copyWith(
+  color: const Color.fromRGBO(50, 50, 50, 1),
+  fontSize: 32.0,
+  fontWeight: FontWeight.w200,
+);
+
 final headerTextStyle = baseTextStyle.copyWith(
   color: const Color.fromRGBO(50, 50, 50, 1),
   fontSize: 13.0,
   fontWeight: FontWeight.w500,
 );
+
 
 final regularTextStyle = baseTextStyle.copyWith(
     color: const Color.fromRGBO(150, 150, 150, 1),

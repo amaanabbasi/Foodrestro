@@ -3,6 +3,33 @@ import 'package:todo/homepage-card.dart';
 import 'package:todo/font-style.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:todo/models/food_item.dart';
+import 'package:todo/cart.dart';
+
+class SlideLeftRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideLeftRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              ),
+        );
+}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -95,9 +122,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black,
                 icon: Icon(Icons.add_shopping_cart),
                 onPressed: () {
-                  () => {};
-                },
+                  Navigator.push(
+                    context, 
+                    SlideLeftRoute(page: FirstRoute())
+                    );                // CupertinoPageRoute(builder: (context) => FirstRoute()));  
+                },    
               ),
+              
             ]),
         body: new Container(
             child: CustomScrollView(
@@ -168,10 +199,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: priceTextStyle,
                                 ),
                                 new Container(height: 7.0),
-                                SmoothStarRating(
+                                SmoothStarRating(                                  
                                   rating: fooditemList.foodItems[index].ratings,
-                                  size: 18,
+                                  allowHalfRating: true,
+                                  size: 19,
                                   starCount: 5,
+                                  color: Colors.orange,
+                                  borderColor: Colors.orange,
                                 ),
                                 //  ListTileItem(),
                               ],

@@ -64,11 +64,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Merriweather-Regular.otf
         - asset: assets/fonts/Merriweather-Bold.otf
-          style: italic
     - family: OpenSans
       fonts:
         - asset: assets/fonts/drawer-fonts/OpenSans-Regular.ttf
         - asset: assets/fonts/drawer-fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/drawer-fonts/OpenSans-ExtraBold.ttf
+        - asset: assets/fonts/drawer-fonts/OpenSans-Light.ttf
+        - asset: assets/fonts/drawer-fonts/OpenSans-Semibold.ttf
 
   #
   # For details regarding fonts from package dependencies,

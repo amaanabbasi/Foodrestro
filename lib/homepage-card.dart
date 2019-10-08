@@ -24,41 +24,40 @@ class HomepageFeaturedContent extends StatelessWidget {
   }
 }
 
-class HomePageBody extends StatefulWidget{
+class HomePageBody extends StatefulWidget {
   @override
- PlanetRow createState() => new PlanetRow();
- List data = fooditemList.foodItems;
-
+  PlanetRow createState() => new PlanetRow();
+  List data = fooditemList.foodItems;
 }
 
 class PlanetRow extends State<HomePageBody> {
-
-    @override
+  @override
   void initState() {
     super.initState();
     // this.getData();
   }
+
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
       shrinkWrap: true,
       // scrollDirection: Axis.horizontal,
-      itemCount: fooditemList.foodItems == null ? 0 : fooditemList.foodItems.length,
-      itemBuilder: (BuildContext context, int index){
+      itemCount:
+          fooditemList.foodItems == null ? 0 : fooditemList.foodItems.length,
+      itemBuilder: (BuildContext context, int index) {
         return new Container(
-        margin: const EdgeInsets.only(
-          bottom: 10.0,
-          left: 10.0,
-          right: 10.0,
-        ),
-        child: new Stack(
-          children: <Widget>[
-            planetCard,
-            dishThumbnail,
-            dishContent,
-          ],
-        )
-        );
+            margin: const EdgeInsets.only(
+              bottom: 10.0,
+              left: 10.0,
+              right: 10.0,
+            ),
+            child: new Stack(
+              children: <Widget>[
+                planetCard,
+                dishThumbnail,
+                dishContent,
+              ],
+            ));
       },
     );
   }

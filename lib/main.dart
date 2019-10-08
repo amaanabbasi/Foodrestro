@@ -5,7 +5,7 @@ import 'dart:async';
 void main() {
   runApp(new MaterialApp(
    theme: new ThemeData(
-      primaryColor: Colors.orange[500],
+      primaryColor: Colors.white,
       textTheme: new TextTheme(
         body1: new TextStyle(color: Colors.red),
       ),
