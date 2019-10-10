@@ -5,6 +5,59 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:todo/models/food_item.dart';
 import 'package:todo/cart.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+// Future<Meal> fetchMeal() async {
+//   final String url = '127.0.0.1:8000/api/customer/meals/6';
+//   final response =  await http.get(url);
+
+//   if (response.statusCode == 200) {
+//     // If the call to the server was successful, parse the JSON.
+//     return Meal.fromJson(json.decode(response.body));
+//   } else {
+//     // If that call was not successful, throw an error.
+//     throw Exception('Failed to load post');
+//   }
+// }
+
+// class Meal {
+//  final  int id;
+//  final  String title;
+//  final  String description;
+//  final  double price;
+//  final  double ratings;
+//  final  String imgUrl;
+//  final  int quantity;
+
+//     Meal({
+//     @required this.id,
+//     @required this.title,
+//     @required this.description,
+//     @required this.price,
+//     @required this.imgUrl,
+//     @required this.ratings,
+//     this.quantity = 1,
+//   });
+
+
+//   factory Meal.fromJson(Map<String, dynamic> json) {
+//     return Meal(
+//       id: json['id'],
+//       title: json['title'],
+//       description: json['description'],
+//       price: json['price'],
+//       imgUrl: json['imgUrl'],
+//       ratings: json['ratings'],
+//     );
+//   }
+// }
+
+// class MealitemList {
+//   List<Meal> mealItems;
+
+//   MealitemList({@required this.mealItems});
+// }
 class SlideLeftRoute extends PageRouteBuilder {
   final Widget page;
   SlideLeftRoute({this.page})
@@ -37,6 +90,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // MealitemList mealitemList = MealitemList(mealItems:fetchMeal());
+  Map data;
+  List mealData;
+
+    Future getData() async {
+      final String url = 'http://192.168.0.105:8000/api/customer/meals/7';
+    http.Response response = await http.get(url);
+      data = json.decode(response.body);
+      
+    setState(() {
+      mealData = data["meals"];
+      // debugPrint(mealData[0].name.toString());
+    });
+  }
+  
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    
+  }
+
+ 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -167,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
                                 image: new NetworkImage(
-                                    fooditemList.foodItems[index].imgUrl))),
+                                   mealData[index]["image"]))),
                         alignment: FractionalOffset.centerLeft,
                       ),
                       new Container(
@@ -182,25 +258,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new Text(fooditemList.foodItems[index].title,
+                                new Text(mealData[index]["name"],
                                     style: headerTextStyle,
                                     softWrap: false,
                                     overflow: TextOverflow.ellipsis),
                                 new Container(height: 2.0),
-                                new Text(
-                                  fooditemList.foodItems[index].description,
-                                  style: subHeaderTextStyle,
-                                ),
+                                // new Text(
+                                //   mealData[index].short_description,
+                                //   style: subHeaderTextStyle,
+                                // ),
                                 new Container(height: 7.0),
                                 new Text(
                                   "\$ " +
-                                      fooditemList.foodItems[index].price
+                                      mealData[index]["price"]
                                           .toString(),
                                   style: priceTextStyle,
                                 ),
                                 new Container(height: 7.0),
                                 SmoothStarRating(                                  
-                                  rating: fooditemList.foodItems[index].ratings,
+                                  rating: 3.0,
                                   allowHalfRating: true,
                                   size: 19,
                                   starCount: 5,
@@ -216,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   );
                 },
-                childCount: 6,
+                childCount: mealData == null ? 0 : mealData.length,
               ),
             )
           ],
@@ -234,40 +310,3 @@ class _HomeScreenState extends State<HomeScreen> {
             ));
   }
 }
-
-// drawer: Drawer(
-//         // Add a ListView to the drawer. This ensures the user can scroll
-//         // through the options in the drawer if there isn't enough vertical
-//         // space to fit everything.
-//         child: ListView(
-//           // Important: Remove any padding from the ListView.
-//           padding: EdgeInsets.zero,
-//           children: <Widget>[
-//             DrawerHeader(
-//               child: Text('Mughal Cuisine', style:drawerHeaderStyle),
-//               decoration: BoxDecoration(
-//                 color: Colors.orangeAccent,
-
-//               )
-//             ),
-//             ListTile(
-//               title: Text('Item 1'),
-//               onTap: () {
-//                 // Update the state of the app
-//                 // ...
-//                 // Then close the drawer
-//                 Navigator.pop(context);
-//               },
-//             ),
-//             ListTile(
-//               title: Text('Item 2'),
-//               onTap: () {
-//                 // Update the state of the app
-//                 // ...
-//                 // Then close the drawer
-//                 Navigator.pop(context);
-//               },
-//             ),
-//           ],
-//         ),
-//       ),

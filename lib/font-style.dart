@@ -17,6 +17,12 @@ final cartSubHeaderStyle = drawerTextStyle.copyWith(
   fontWeight: FontWeight.w200,
 );
 
+final cartRegularStyle = drawerTextStyle.copyWith(
+  color: const Color.fromRGBO(50, 50, 50, 1),
+  fontSize: 16.0,
+  fontWeight: FontWeight.w600,
+);
+
 final headerTextStyle = baseTextStyle.copyWith(
   color: const Color.fromRGBO(50, 50, 50, 1),
   fontSize: 13.0,
@@ -33,7 +39,7 @@ final subHeaderTextStyle = regularTextStyle.copyWith(fontSize: 12.0);
 
 final priceTextStyle = baseTextStyle.copyWith(
   color: const Color.fromRGBO(10, 10, 10, 1),
-  fontSize: 18.0,
+  fontSize: 16.0,
   fontWeight: FontWeight.w500,
 );
 

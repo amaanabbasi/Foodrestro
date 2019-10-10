@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/font-style.dart';
+import 'package:todo/models/food_item.dart';
 
 class FirstRoute extends StatelessWidget {
   @override
@@ -14,69 +15,99 @@ class FirstRoute extends StatelessWidget {
           elevation: 0.0,
         ),
         body: Container(
-            color: Colors.yellow,
+            color: Colors.white,
             height: height,
             margin: const EdgeInsets.only(
-              top: 40.0,
+              top: 1.0,
               left: 20.0,
               right: 20.0,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("My", style: cartHeaderStyle),
-                Text("Order", style: cartSubHeaderStyle),
-                Container(
-                  color: Colors.red,
-                  height: height / 2, //Your custom height
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    children: <Widget>[
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                      Text("Order", style: cartSubHeaderStyle),
-                    ],
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: width / 2.5),
-                    width: width,
-                    color: Colors.blue,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Total: ", style: cartSubHeaderStyle),
-                        Text(
-                          "\$ 45",
-                          style: cartHeaderStyle,
-                          textAlign: TextAlign.center,
+                        Text("My", style: cartHeaderStyle),
+                        Text("Order", style: cartSubHeaderStyle),
+                        Container(
+                          height: width / 14,
+                        ),
+                        Container( // Cart Items
+                          color: Colors.white12,
+                          height: height / 2.0, //Your custom height
+                          // decoration: BoxBorder(),
+                          child: new ListView.builder(
+                              itemCount: fooditemList.foodItems.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return new Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: new EdgeInsets.only(
+                                        // vertical: 16.0,
+                                        // horizontal: 20.0,
+                                        bottom: 5.0,
+                                      ),
+                                      height: 42.0,
+                                      width: 42.0,
+                                      decoration: new BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          image: new DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: new NetworkImage(
+                                                  fooditemList.foodItems[index]
+                                                      .imgUrl))),
+                                      alignment: FractionalOffset.centerLeft,
+                                    ),
+                                    Container(
+                                      width:width / 2.2,
+                                      margin: EdgeInsets.only(left: 50),
+                                      child: Text(fooditemList.foodItems[index].title,
+                                        style: cartRegularStyle)
+                                    ),
+                                    Container(alignment: Alignment.bottomRight,
+                                    child: Text( " \$" + fooditemList.foodItems[index].price.toString()))
+                                    
+                                  ],
+                                );
+                              }),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(left: width / 2.5),
+                            width: width,
+                            color: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("Total: ", style: cartSubHeaderStyle),
+                                Text(
+                                  "\$ 45",
+                                  style: cartHeaderStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            )),
+                        new Container(
+                          color: Colors.yellow,
+                          width: width,
+                          height: 50,
+                          padding: const EdgeInsets.only(top: 0.0),
+                          child: new RaisedButton(
+                            child: new Text("Place Order",
+                                style: new TextStyle(
+                                  color: Colors.black,
+                                )),
+                            onPressed: () {
+                              print("Button pressed");
+                            },
+                            color: Colors.yellow,
+                          ),
                         ),
                       ],
-                    )),
-                new Container(
-                  width: width,
-                  height: width / 8,
-                    padding: const EdgeInsets.only(top: 0.0),
-                      child: new RaisedButton(
-                        child: new Text("Place Order",
-                            style: new TextStyle(
-                              color: Colors.white,
-                            )),
-                        colorBrightness: Brightness.dark,
-                        onPressed: () {
-                          print("Button pressed");
-                        },
-                        color: Colors.white24,
-                      ),
-                    ),
+                    )
+                  ]),
+                )
               ],
             )));
   }
